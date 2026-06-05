@@ -407,6 +407,14 @@
           <div class="filter-container" style="background: #fefce8; border-color: #fef08a;">
             <div class="filter-grid">
               <div class="form-group" style="margin-bottom:0;">
+                <label style="color:#854d0e;">Jenis Transaksi</label>
+                <select id="recapType" style="border-color:#fde047;">
+                  <option value="all">Semua</option>
+                  <option value="income">Pemasukan</option>
+                  <option value="expense">Pengeluaran</option>
+                </select>
+              </div>
+              <div class="form-group" style="margin-bottom:0;">
                 <label style="color:#854d0e;">Tanggal Spesifik</label>
                 <input type="date" id="recapDate" style="border-color:#fde047;">
               </div>
@@ -680,7 +688,6 @@
 
       if (fType !== 'all') filtered = filtered.filter(t => t.type === fType);
       
-      // Jika Tanggal Spesifik diisi, gunakan itu. Jika tidak, gunakan filter bulan.
       if (fDate) {
         filtered = filtered.filter(t => t.date === fDate);
       } else if (fMonth !== 'all') {
@@ -704,8 +711,14 @@
       const year = document.getElementById('recapYear').value;
       const month = document.getElementById('recapMonth').value;
       const rDate = document.getElementById('recapDate').value;
+      const rType = document.getElementById('recapType').value;
       
       let filtered = transactions;
+
+      // Filter berdasarkan Jenis Transaksi Rekap (Pemasukan / Pengeluaran)
+      if (rType !== 'all') {
+        filtered = filtered.filter(t => t.type === rType);
+      }
 
       // Jika ada tanggal spesifik rekap, dahulukan tanggal spesifik tersebut
       if (rDate) {
@@ -742,7 +755,6 @@
       
       let filtered = transactions;
 
-      // Jika ada tanggal spesifik grafik, dahulukan tanggal spesifik tersebut
       if (cDate) {
         filtered = filtered.filter(t => t.date === cDate);
       } else {
